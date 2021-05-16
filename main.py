@@ -26,7 +26,7 @@ if __name__ == '__main__':
         k = cv2.waitKey(1)
         if k == ord('q') or k == 27:
             break
-        # if k == ord('s'): 保存
-        # if k == ord('d'): 识别
+        # if k == ord('s'): 保存人脸
+        # if k == ord('d'): 人脸识别
     cap.release()
     cv2.destroyAllWindows()
