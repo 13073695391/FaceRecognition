@@ -9,7 +9,7 @@ is_save_face = int(input("是否需要保存图片[0-False, 1-True]："))
 path = "face_images/"
 origin_count, total_count = 0, 0
 if is_save_face:
-    face_id = str(input("人脸编号："))
+    face_id = int(input("人脸编号："))
     face_count = int(input("人脸数量："))
     path = path + str(face_id)
     origin_count = tools.mkdir(path)
