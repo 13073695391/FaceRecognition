@@ -1,42 +1,7 @@
 import tensorflow as tf
-import numpy as np
-from tensorflow import keras
-from tensorflow.keras import layers, optimizers, datasets, Sequential
-import glob
-from skimage import io, transform
-import random
-import csv
-import time
-import cv2
-import os
+from tensorflow.python.training import optimizer
 
-
-
-# 由卷积层和全连接层组成，中间用Flatten层进行平铺, inputs: [None, 64, 64, 3]
-my_layers = [
-    layers.Conv2D(32, kernel_size=[3, 3], padding="same", activation=tf.nn.relu),
-    layers.Conv2D(32, kernel_size=[3, 3], padding="same", activation=tf.nn.relu),
-    layers.MaxPool2D(pool_size=[2, 2], strides=2, padding="same"),
-
-    layers.Conv2D(64, kernel_size=[3, 3], padding="same", activation=tf.nn.relu),
-    layers.Conv2D(64, kernel_size=[3, 3], padding="same", activation=tf.nn.relu),
-    layers.MaxPool2D(pool_size=[2, 2], strides=2, padding="same"),
-
-    layers.Conv2D(64, kernel_size=[3, 3], padding="same", activation=tf.nn.relu),
-    layers.Conv2D(64, kernel_size=[3, 3], padding="same", activation=tf.nn.relu),
-    layers.MaxPool2D(pool_size=[2, 2], strides=2, padding="same"),
-
-    layers.Flatten(),
-
-    layers.Dense(512, activation=tf.nn.relu),
-    layers.Dropout(rate=0.5),
-    layers.Dense(2, activation=None)
-]
-my_net = Sequential(my_layers)
-my_net.build(input_shape=[None, 64, 64, 3])
-my_net.summary()
-optimizer = optimizers.Adam(lr=1e-3)
-
+import face
 
 acc_best = 0
 patience_num = 10
@@ -74,11 +39,11 @@ for epoch in range(50):
         total_correct += int(correct)
     acc = total_correct / total_num
     if acc > acc_best:
-    	acc_best = acc
-    	no_improved_num = 0
-    	my_net.save('model.h5')
+        acc_best = acc
+        no_improved_num = 0
+        my_net.save('model')
     else:
-    	no_improved_num += 1
+        no_improved_num += 1
     print(epoch, 'acc:', acc, 'no_improved_num:', no_improved_num)
     if no_improved_num >= patience_num:
-    	break
+        break
