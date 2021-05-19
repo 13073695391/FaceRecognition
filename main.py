@@ -44,6 +44,7 @@ while cap.isOpened():
     k = cv2.waitKey(10)
     if origin_count >= total_count:
         if is_save_face:
+
             print("图片保存完成")
         is_save_face = False
     if k == 27:
