@@ -1,9 +1,9 @@
 import cv2
 import tools
+import settings
 
 cap = cv2.VideoCapture(0)
-faceCascade = cv2.CascadeClassifier(r'D:\Program\ProgramData\Anaconda3\envs\tensorflow\Lib\site-packages\cv2\data'
-                                    r'\haarcascade_frontalface_default.xml')
+faceCascade = cv2.CascadeClassifier(settings.path())
 font = cv2.FONT_HERSHEY_DUPLEX
 is_save_face = int(input("是否需要保存图片[0-False, 1-True]："))
 path = "face_images/"
@@ -44,7 +44,6 @@ while cap.isOpened():
     k = cv2.waitKey(10)
     if origin_count >= total_count:
         if is_save_face:
-
             print("图片保存完成")
         is_save_face = False
     if k == 27:
